@@ -1,0 +1,41 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ServiceSelector from "../../components/home/ServiceSelector.astro";
+
+const title = "Dịch Vụ Cho Thuê Xe - Nhà Xe Thanh Tuấn";
+const description = "Thuê xe có tài xế và thuê xe tự lái tại Nhà xe Thanh Tuấn.";
+
+const quickLinks = [
+  { label: "Đưa đón sân bay", href: "/dich-vu/san-bay" },
+  { label: "Xe đi tỉnh & Du lịch", href: "/dich-vu/di-tinh" },
+  { label: "Thủ tục thuê xe tự lái", href: "/thu-tuc-tu-lai" },
+  { label: "Hướng dẫn đặt xe", href: "/huong-dan-dat-xe" },
+];
+---
+
+<Layout title={title} description={description}>
+  <div class="container mx-auto max-w-[1200px] px-6 pt-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Dịch Vụ Cho Thuê Xe</h1>
+    <p class="text-text-muted">
+      Chọn hình thức phù hợp: có tài xế đưa đón trọn gói, hoặc tự lái chủ động lịch trình.
+    </p>
+  </div>
+
+  <ServiceSelector />
+
+  <section class="container mx-auto max-w-[1200px] px-6 pb-12">
+    <h2 class="mb-4 text-lg font-semibold">Xem thêm</h2>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        quickLinks.map((l) => (
+          <a
+            href={l.href}
+            class="rounded-lg border border-border bg-bg-card px-4 py-3 text-sm font-medium hover:border-primary hover:text-primary"
+          >
+            {l.label} →
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

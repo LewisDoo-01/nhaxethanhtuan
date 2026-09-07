@@ -1,0 +1,36 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Dịch Vụ Cho Gia Đình - Nhà Xe Thanh Tuấn";
+const description = "Xe rộng rãi, tài xế điềm đạm, an toàn cho cả gia đình.";
+
+const points = [
+  "Tài xế lái điềm đạm, chống say xe cho trẻ nhỏ và người lớn tuổi",
+  "Xe rộng rãi, sạch sẽ, phù hợp đi chơi xa cùng gia đình",
+  "Hỗ trợ ghế trẻ em theo yêu cầu",
+  "Giá cả minh bạch, không phát sinh chi phí ẩn",
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Dành Cho Gia Đình</h1>
+    <p class="mb-8 text-text-muted">
+      An toàn và tiện nghi là ưu tiên hàng đầu khi cả gia đình cùng lên xe.
+    </p>
+
+    <ul class="mb-10 grid gap-3 sm:grid-cols-2">
+      {
+        points.map((p) => (
+          <li class="flex items-start gap-2 text-sm">
+            <i class="fa-solid fa-circle-check mt-0.5 text-primary" />
+            {p}
+          </li>
+        ))
+      }
+    </ul>
+
+    <QuoteForm id="gia-dinh-quote-form" heading="Nhận Báo Giá Cho Chuyến Đi Gia Đình" />
+  </section>
+</Layout>

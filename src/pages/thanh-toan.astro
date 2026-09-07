@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PendingNote from "../components/PendingNote.astro";
+
+const title = "Phương Thức Thanh Toán - Nhà Xe Thanh Tuấn";
+const description = "Phương thức thanh toán khi thuê xe có tài xế và thuê xe tự lái.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Phương Thức Thanh Toán</h1>
+
+    <div class="mb-8 grid gap-6 sm:grid-cols-2">
+      <div class="rounded-xl border border-border bg-bg-card p-6">
+        <h2 class="mb-3 text-lg font-semibold">Thuê Xe Có Tài Xế</h2>
+        <p class="text-sm">
+          Giá cả minh bạch, hỗ trợ xuất hóa đơn VAT đầy đủ theo yêu cầu.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-border bg-bg-card p-6">
+        <h2 class="mb-3 text-lg font-semibold">Thuê Xe Tự Lái</h2>
+        <p class="text-sm">
+          Thanh toán trước 100% tiền thuê xe tại thời điểm ký kết hợp đồng và nhận bàn giao xe.
+          Chi tiết tại <a href="/thu-tuc-tu-lai" class="font-semibold text-primary hover:underline">Thủ Tục Thuê Xe Tự Lái</a>.
+        </p>
+      </div>
+    </div>
+
+    <PendingNote text="Danh sách cụ thể các hình thức thanh toán được chấp nhận (tiền mặt, chuyển khoản, ví điện tử...) chưa được nhà xe xác nhận — cần bổ sung trước khi công bố chính thức." />
+  </section>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import { fleetClasses } from "../data/routes";
+---
+
+<div class="grid gap-6 sm:grid-cols-3">
+  {
+    fleetClasses.map((f) => (
+      <div class="rounded-xl border border-border bg-bg-card p-4 text-center">
+        <div class="mb-3 flex min-h-[100px] items-center justify-center rounded-lg border-2 border-dashed border-border bg-gray-50 text-sm text-text-muted">
+          Ảnh cần bổ sung: xe {f.seats}
+        </div>
+        <h3 class="font-semibold">Xe {f.seats}</h3>
+        <p class="text-xs text-text-muted">{f.note}</p>
+      </div>
+    ))
+  }
+</div>

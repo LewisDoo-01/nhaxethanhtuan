@@ -1,0 +1,34 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Giải Pháp Cho Doanh Nghiệp - Nhà Xe Thanh Tuấn";
+const description = "Xe đưa đón công tác chuyên nghiệp, đúng giờ, hỗ trợ xuất hóa đơn VAT.";
+
+const points = [
+  "Đúng giờ, chuẩn chỉ theo lịch làm việc",
+  "Xe sang trọng, lịch sự, phù hợp đón đối tác/khách công tác",
+  "Tài xế ăn mặc lịch sự, không hút thuốc trong xe, biết tiếng Anh cơ bản",
+  "Hỗ trợ xuất hóa đơn VAT đầy đủ, thanh toán nhanh chóng",
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Giải Pháp Cho Doanh Nghiệp & Công Tác</h1>
+    <p class="mb-8 text-text-muted">Uy tín, chuyên nghiệp, đúng chuẩn cho nhu cầu công tác.</p>
+
+    <ul class="mb-10 grid gap-3 sm:grid-cols-2">
+      {
+        points.map((p) => (
+          <li class="flex items-start gap-2 text-sm">
+            <i class="fa-solid fa-circle-check mt-0.5 text-primary" />
+            {p}
+          </li>
+        ))
+      }
+    </ul>
+
+    <QuoteForm id="doanh-nghiep-quote-form" heading="Nhận Báo Giá Cho Doanh Nghiệp" />
+  </section>
+</Layout>

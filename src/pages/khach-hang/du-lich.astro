@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Cẩm Nang Du Lịch - Nhà Xe Thanh Tuấn";
+const description = "Lộ trình linh hoạt, tài xế kiêm hướng dẫn viên địa phương nhiệt tình.";
+
+const points = [
+  "Lộ trình linh hoạt theo lịch trình của bạn",
+  "Tài xế kiêm hướng dẫn viên địa phương, rành đường và điểm tham quan",
+  "Phù hợp cả thuê xe có tài xế lẫn tự lái khám phá",
+  "Hỗ trợ các tuyến đi tỉnh, miền Tây phổ biến",
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Dành Cho Khách Du Lịch</h1>
+    <p class="mb-8 text-text-muted">Tự do trải nghiệm, không gò bó lịch trình.</p>
+
+    <ul class="mb-10 grid gap-3 sm:grid-cols-2">
+      {
+        points.map((p) => (
+          <li class="flex items-start gap-2 text-sm">
+            <i class="fa-solid fa-circle-check mt-0.5 text-primary" />
+            {p}
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mb-8 text-sm text-text-muted">
+      Xem bảng giá các tuyến đi tỉnh phổ biến tại trang
+      <a href="/dich-vu/di-tinh" class="font-semibold text-primary hover:underline">Thuê Xe Đi Tỉnh & Du Lịch</a>.
+    </p>
+
+    <QuoteForm id="du-lich-quote-form" heading="Nhận Báo Giá Cho Chuyến Du Lịch" />
+  </section>
+</Layout>

@@ -1,0 +1,80 @@
+---
+interface Props {
+  id: string;
+  heading?: string;
+  layout?: "inline" | "stacked";
+}
+const { id, heading, layout = "stacked" } = Astro.props;
+const isInline = layout === "inline";
+---
+
+<form
+  id={id}
+  data-track="form_submit"
+  class:list={[
+    "grid gap-4 rounded-xl border border-border bg-bg-card p-6 shadow-md",
+    isInline ? "sm:grid-cols-2 lg:grid-cols-5 lg:items-end" : "",
+  ]}
+>
+  {heading && <h2 class="text-lg font-semibold lg:col-span-full">{heading}</h2>}
+
+  {
+    !isInline && (
+      <div>
+        <label for={`${id}-name`} class="mb-1 block text-sm font-medium">
+          Họ tên
+        </label>
+        <input id={`${id}-name`} name="name" type="text" required class="w-full rounded-lg border border-border px-3 py-2" />
+      </div>
+    )
+  }
+
+  <div class:list={isInline ? "sm:col-span-2 lg:col-span-1" : ""}>
+    <label for={`${id}-service-type`} class="mb-1 block text-sm font-medium">Loại dịch vụ</label>
+    <select id={`${id}-service-type`} name="service-type" class="w-full rounded-lg border border-border px-3 py-2">
+      <option value="driver">Có tài xế</option>
+      <option value="self-drive">Tự lái</option>
+    </select>
+  </div>
+
+  <div>
+    <label for={`${id}-from`} class="mb-1 block text-sm font-medium">Điểm đi</label>
+    <input id={`${id}-from`} name="from" type="text" placeholder="TP.HCM" class="w-full rounded-lg border border-border px-3 py-2" />
+  </div>
+
+  <div>
+    <label for={`${id}-to`} class="mb-1 block text-sm font-medium">Điểm đến</label>
+    <input id={`${id}-to`} name="to" type="text" placeholder="Vũng Tàu..." class="w-full rounded-lg border border-border px-3 py-2" />
+  </div>
+
+  <div>
+    <label for={`${id}-datetime`} class="mb-1 block text-sm font-medium">Ngày giờ đi</label>
+    <input id={`${id}-datetime`} name="datetime" type="datetime-local" class="w-full rounded-lg border border-border px-3 py-2" />
+  </div>
+
+  <div>
+    <label for={`${id}-phone`} class="mb-1 block text-sm font-medium">Số điện thoại</label>
+    <input id={`${id}-phone`} name="phone" type="tel" placeholder="09xx xxx xxx" required class="w-full rounded-lg border border-border px-3 py-2" />
+  </div>
+
+  {
+    !isInline && (
+      <div>
+        <label for={`${id}-note`} class="mb-1 block text-sm font-medium">
+          Ghi chú (lộ trình nhiều ngày, nhu cầu riêng...)
+        </label>
+        <textarea id={`${id}-note`} name="note" rows="3" class="w-full rounded-lg border border-border px-3 py-2" />
+      </div>
+    )
+  }
+
+  <button
+    type="submit"
+    class:list={[
+      "inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-hover",
+      isInline ? "sm:col-span-2 lg:col-span-5" : "",
+    ]}
+  >
+    {isInline ? "Nhận Báo Giá Trong 5 Phút" : "Gửi Yêu Cầu Báo Giá"}
+  </button>
+</form>

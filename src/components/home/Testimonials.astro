@@ -1,0 +1,21 @@
+---
+// IA §3.1.7 Đánh Giá Từ Khách Hàng
+// Chưa có đánh giá thật do khách hàng cung cấp — không tự tạo review giả
+// (xem docs/PRD.md §8, CLAUDE.md). Giữ khung layout, chờ nội dung thật.
+---
+
+<section class="bg-gray-50">
+  <div class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h2 class="mb-8 text-center text-2xl font-bold">Đánh Giá Từ Khách Hàng</h2>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        Array.from({ length: 3 }).map(() => (
+          <div class="rounded-xl border-2 border-dashed border-border bg-bg-card p-6 text-center text-sm text-text-muted">
+            <i class="fa-solid fa-quote-left mb-3 text-2xl text-gray-300" />
+            <p>Đánh giá thật cần bổ sung (gia đình / khách du lịch / doanh nghiệp)</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

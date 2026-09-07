@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PendingNote from "../components/PendingNote.astro";
+import { HOTLINE_DISPLAY, HOTLINE_TEL } from "../consts";
+
+const title = "Chính Sách Hoàn Hủy & Bồi Thường - Nhà Xe Thanh Tuấn";
+const description = "Chính sách hoàn hủy, bồi thường khi thuê xe tại Nhà xe Thanh Tuấn.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Chính Sách Hoàn Hủy & Bồi Thường</h1>
+    <p class="mb-8 text-text-muted">
+      Đã xác nhận riêng cho thuê xe tự lái; các trường hợp khác đang chờ bổ sung.
+    </p>
+
+    <div class="mb-8 rounded-xl border border-border bg-bg-card p-6">
+      <h2 class="mb-3 text-lg font-semibold">Thuê Xe Tự Lái — Tài Sản Thế Chấp</h2>
+      <p class="text-sm">
+        Với hình thức ký quỹ tiền mặt, nhà xe hoàn trả 100% tiền cọc khi khách hàng bàn giao xe
+        nguyên vẹn. Chi tiết tại <a href="/thu-tuc-tu-lai" class="font-semibold text-primary hover:underline">Thủ Tục Thuê Xe Tự Lái</a>.
+      </p>
+    </div>
+
+    <PendingNote text="Chính sách hoàn/hủy đơn đặt xe có tài xế, và mức bồi thường cụ thể cho từng trường hợp, chưa được nhà xe cung cấp — cần xác nhận trước khi công bố chính thức." />
+
+    <p class="mt-8 text-sm text-text-muted">
+      Có câu hỏi cụ thể? Gọi Hotline
+      <a data-track="call" href={`tel:${HOTLINE_TEL}`} class="font-semibold text-primary hover:underline"
+        >{HOTLINE_DISPLAY}</a
+      > để được tư vấn trực tiếp.
+    </p>
+  </section>
+</Layout>

@@ -1,0 +1,43 @@
+---
+// IA §3.1.5 Góc Khách Hàng
+const segments = [
+  {
+    icon: "fa-people-roof",
+    title: "Gia Đình",
+    href: "/khach-hang/gia-dinh",
+    desc: "An toàn, tiện nghi, xe rộng rãi, tài xế lái điềm đạm chống say xe. Hỗ trợ ghế trẻ em theo yêu cầu.",
+  },
+  {
+    icon: "fa-suitcase-rolling",
+    title: "Khách Du Lịch",
+    href: "/khach-hang/du-lich",
+    desc: "Lộ trình linh hoạt, tài xế kiêm hướng dẫn viên địa phương nhiệt tình.",
+  },
+  {
+    icon: "fa-briefcase",
+    title: "Doanh Nghiệp & Công Tác",
+    href: "/khach-hang/doanh-nghiep",
+    desc: "Chuẩn chỉ giờ giấc, xe sang trọng lịch sự, hỗ trợ xuất hóa đơn VAT nhanh chóng.",
+  },
+];
+---
+
+<section class="bg-gray-50">
+  <div class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h2 class="mb-8 text-center text-2xl font-bold">Dành Cho Từng Nhu Cầu Của Bạn</h2>
+    <div class="grid gap-6 sm:grid-cols-3">
+      {
+        segments.map((s) => (
+          <a
+            href={s.href}
+            class="group rounded-xl bg-bg-card p-6 text-center shadow-sm transition hover:shadow-lg"
+          >
+            <i class={`fa-solid ${s.icon} mb-3 text-3xl text-primary`} />
+            <h3 class="mb-2 font-semibold text-secondary group-hover:text-primary">{s.title}</h3>
+            <p class="text-sm text-text-muted">{s.desc}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

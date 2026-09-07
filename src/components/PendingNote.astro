@@ -1,0 +1,16 @@
+---
+/**
+ * Callout for content that has no confirmed real-world source yet
+ * (legal terms, policy numbers, blog posts). Never replace with invented
+ * specifics — wait for the real data (see docs/PRD.md §8).
+ */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+
+<div class="rounded-xl border-2 border-dashed border-border bg-gray-50 p-6 text-center text-sm text-text-muted">
+  <i class="fa-solid fa-circle-info mb-2 block text-xl text-gray-400"></i>
+  {text}
+</div>

@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/*
+  Design tokens migrated from legacy/style.css.
+  Primary/secondary colors are the values already chosen there (red/orange).
+  Neutral colors were left as unfinished "black" placeholders in the legacy
+  file — replaced here with a usable neutral scale. Final brand palette is
+  still an open item (see docs/PRD.md §8).
+*/
+@theme {
+  --color-primary: #e04f4f;
+  --color-primary-hover: #24787e;
+  --color-secondary: #d86d26;
+  --color-secondary-light: #1a1a1a;
+
+  --color-bg-main: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-text-main: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+
+  --font-heading: "Montserrat", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-main);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-secondary);
+}
+
+@keyframes ring {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+.animate-ring {
+  animation: ring 1.5s infinite ease-in-out;
+}
+
+/* Prevent background scroll when mobile menu is open */
+body.menu-open {
+  overflow: hidden;
+}

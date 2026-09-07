@@ -1,0 +1,28 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BookingProcess from "../components/home/BookingProcess.astro";
+import { HOTLINE_DISPLAY, HOTLINE_TEL } from "../consts";
+
+const title = "Hướng Dẫn Đặt Xe - Nhà Xe Thanh Tuấn";
+const description = "3 bước đơn giản để đặt xe tại Nhà xe Thanh Tuấn.";
+---
+
+<Layout title={title} description={description}>
+  <div class="container mx-auto max-w-[1200px] px-6 pt-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Hướng Dẫn Đặt Xe</h1>
+    <p class="text-text-muted">Chỉ 3 bước để có xe ngay khi bạn cần.</p>
+  </div>
+
+  <BookingProcess />
+
+  <div class="container mx-auto max-w-[1200px] px-6 pb-12 text-center">
+    <a
+      href={`tel:${HOTLINE_TEL}`}
+      data-track="call"
+      class="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary-hover"
+    >
+      <i class="fa-solid fa-phone animate-ring"></i>
+      Gọi Ngay Để Đặt Xe: {HOTLINE_DISPLAY}
+    </a>
+  </div>
+</Layout>

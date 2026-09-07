@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+
+const title = "Thủ Tục Thuê Xe Tự Lái - Nhà Xe Thanh Tuấn";
+const description = "Giấy tờ cần thiết, tài sản thế chấp và phương thức thanh toán khi thuê xe tự lái.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Thủ Tục Thuê Xe Tự Lái</h1>
+    <p class="mb-10 text-text-muted">
+      Áp dụng cho mọi đơn thuê xe tự lái, theo ngày hoặc theo tháng/dài hạn.
+    </p>
+
+    <div class="mb-8 rounded-xl border border-border bg-bg-card p-6">
+      <h2 class="mb-3 flex items-center gap-2 text-lg font-semibold">
+        <i class="fa-solid fa-id-card text-primary"></i>Giấy Tờ Tùy Thân Bắt Buộc
+      </h2>
+      <ul class="space-y-2 text-sm">
+        <li>Căn cước công dân (CCCD) gắn chip bản gốc (hoặc xuất trình tài khoản VNeID cấp độ 2).</li>
+        <li>Giấy phép lái xe (GPLX) hạng B1, B2 trở lên (bản gốc, còn hạn sử dụng).</li>
+      </ul>
+    </div>
+
+    <div class="mb-8 rounded-xl border border-border bg-bg-card p-6">
+      <h2 class="mb-3 flex items-center gap-2 text-lg font-semibold">
+        <i class="fa-solid fa-vault text-primary"></i>Tài Sản Thế Chấp (Chọn 1 Trong 2)
+      </h2>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <strong>Hình thức 1:</strong> Xe máy chính chủ (giá trị tối thiểu 15.000.000đ -
+          20.000.000đ) kèm theo cà vẹt xe máy bản gốc.
+        </li>
+        <li>
+          <strong>Hình thức 2:</strong> Ký quỹ bằng tiền mặt trị giá 15.000.000đ (nhà xe sẽ hoàn
+          trả 100% khi khách hàng bàn giao xe nguyên vẹn).
+        </li>
+      </ul>
+    </div>
+
+    <div class="mb-10 rounded-xl border border-border bg-bg-card p-6">
+      <h2 class="mb-3 flex items-center gap-2 text-lg font-semibold">
+        <i class="fa-solid fa-money-bill-wave text-primary"></i>Phương Thức Thanh Toán
+      </h2>
+      <p class="text-sm">
+        Thanh toán trước 100% tiền thuê xe tại thời điểm ký kết hợp đồng và nhận bàn giao xe.
+      </p>
+    </div>
+
+    <QuoteForm id="thu-tuc-quote-form" heading="Còn Thắc Mắc? Nhận Tư Vấn Ngay" />
+  </section>
+</Layout>

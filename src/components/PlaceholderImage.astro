@@ -1,0 +1,21 @@
+---
+/**
+ * Stand-in for real photos of the fleet/drivers. Per CLAUDE.md: never use
+ * stock photos — this stays visible until real photos are supplied.
+ */
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex min-h-[160px] flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-border bg-gray-50 p-4 text-center text-sm text-text-muted",
+    className,
+  ]}
+>
+  <i class="fa-solid fa-image text-2xl text-gray-300"></i>
+  <span>Ảnh cần bổ sung: {label}</span>
+</div>

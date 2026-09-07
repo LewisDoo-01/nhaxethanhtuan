@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import RoutePriceTable from "../../components/RoutePriceTable.astro";
+import FleetGrid from "../../components/FleetGrid.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Thuê Xe Có Tài Xế - Đội Xe Đời Mới, Tài Xế Chuyên Nghiệp | Thanh Tuấn";
+const description =
+  "Dịch vụ thuê xe có tài xế: đưa đón sân bay, đi tỉnh, du lịch, công tác. Xe đời mới, tài xế chuyên nghiệp, đúng giờ.";
+
+const subServices = [
+  { label: "Đưa đón sân bay", href: "/dich-vu/san-bay" },
+  { label: "Xe đi tỉnh & Du lịch", href: "/dich-vu/di-tinh" },
+  { label: "Xe đưa đón công tác / VIP", href: "/khach-hang/doanh-nghiep" },
+];
+
+const driverStandards = [
+  "Trang phục lịch sự (sơ mi, quần tây)",
+  "Không hút thuốc trong xe",
+  "Lái xe êm ái, đúng giờ",
+  "Biết tiếng Anh cơ bản (khi đón khách nước ngoài)",
+];
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">
+      Dịch Vụ Thuê Xe Có Tài Xế - Đội Xe Đời Mới, Tài Xế Chuyên Nghiệp
+    </h1>
+    <p class="mb-8 text-text-muted">
+      Đưa đón sân bay, xe đi tỉnh, du lịch, công tác — tài xế rành đường, đúng giờ, thân thiện.
+    </p>
+
+    <div class="mb-10 flex flex-wrap gap-3">
+      {
+        subServices.map((s) => (
+          <a
+            href={s.href}
+            class="rounded-lg border border-border bg-bg-card px-4 py-2 text-sm font-medium hover:border-primary hover:text-primary"
+          >
+            {s.label} →
+          </a>
+        ))
+      }
+    </div>
+
+    <h2 class="mb-4 text-xl font-bold">Bảng Giá Các Tuyến Phổ Biến</h2>
+    <p class="mb-4 text-sm text-text-muted">
+      Giá đã bao gồm tài xế, xăng dầu, cầu đường cơ bản. Chưa bao gồm phí cao tốc tùy chọn, VAT
+      (xuất hóa đơn theo yêu cầu), tip tài xế nếu có.
+    </p>
+    <div class="mb-10">
+      <RoutePriceTable />
+    </div>
+
+    <h2 class="mb-4 text-xl font-bold">Đội Xe Phục Vụ</h2>
+    <div class="mb-10">
+      <FleetGrid />
+    </div>
+
+    <h2 class="mb-4 text-xl font-bold">Tiêu Chuẩn Tài Xế</h2>
+    <ul class="mb-10 grid gap-2 sm:grid-cols-2">
+      {
+        driverStandards.map((s) => (
+          <li class="flex items-center gap-2 text-sm">
+            <i class="fa-solid fa-circle-check text-primary" />
+            {s}
+          </li>
+        ))
+      }
+    </ul>
+
+    <QuoteForm id="co-tai-xe-quote-form" heading="Nhận Báo Giá Chi Tiết" />
+  </section>
+</Layout>

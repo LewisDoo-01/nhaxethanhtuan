@@ -1,0 +1,72 @@
+---
+import { HOTLINE_DISPLAY, HOTLINE_TEL, SITE_NAME, ZALO_LINK } from "../consts";
+---
+
+<footer class="bg-secondary-light text-white">
+  <div class="container mx-auto max-w-[1200px] px-6 py-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Cột 1: Thông tin công ty -->
+    <div>
+      <h3 class="flex items-center gap-2 font-heading text-lg font-bold mb-3">
+        <i class="fa-solid fa-car-side text-primary"></i>
+        {SITE_NAME}
+      </h3>
+      <p class="text-sm text-white/70">
+        Nhà xe Thanh Tuấn cung cấp dịch vụ thuê xe tự lái và xe du lịch có tài xế, cam kết an
+        toàn, đúng giờ, giá rẻ nhất khu vực TP.HCM và các tỉnh lân cận.
+      </p>
+      <!-- TODO(open-item): mã số thuế + giấy phép kinh doanh vận tải (docs/PRD.md §8) -->
+      <div class="flex gap-3 mt-4 text-lg">
+        <a href="#" aria-label="Facebook" class="hover:text-primary"
+          ><i class="fa-brands fa-facebook-f"></i></a
+        >
+      </div>
+    </div>
+
+    <!-- Cột 2: Dịch vụ -->
+    <div>
+      <h4 class="font-heading font-semibold mb-3">Dịch vụ</h4>
+      <ul class="space-y-2 text-sm text-white/70">
+        <li><a href="/dich-vu/co-tai-xe" class="hover:text-primary">Thuê xe có tài xế</a></li>
+        <li><a href="/dich-vu/tu-lai" class="hover:text-primary">Thuê xe tự lái</a></li>
+        <li><a href="/dich-vu/san-bay" class="hover:text-primary">Xe đưa đón sân bay</a></li>
+        <li><a href="/dich-vu/di-tinh" class="hover:text-primary">Xe đi tỉnh & Du lịch</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 3: Hỗ trợ khách hàng -->
+    <div>
+      <h4 class="font-heading font-semibold mb-3">Hỗ trợ khách hàng</h4>
+      <ul class="space-y-2 text-sm text-white/70">
+        <li><a href="/huong-dan-dat-xe" class="hover:text-primary">Hướng dẫn đặt xe</a></li>
+        <li><a href="/thu-tuc-tu-lai" class="hover:text-primary">Thủ tục thuê xe tự lái</a></li>
+        <li><a href="/chinh-sach" class="hover:text-primary">Chính sách hoàn hủy/bồi thường</a></li>
+        <li><a href="/thanh-toan" class="hover:text-primary">Phương thức thanh toán</a></li>
+      </ul>
+    </div>
+
+    <!-- Cột 4: Kết nối / liên hệ -->
+    <div>
+      <h4 class="font-heading font-semibold mb-3">Thông tin liên hệ</h4>
+      <ul class="space-y-2 text-sm text-white/70">
+        <li><i class="fa-solid fa-location-dot mr-2"></i>Bình Thạnh, TP. Hồ Chí Minh</li>
+        <li>
+          <i class="fa-solid fa-phone mr-2"></i>Hotline:
+          <a data-track="call" href={`tel:${HOTLINE_TEL}`} class="hover:text-primary"
+            >{HOTLINE_DISPLAY}</a
+          >
+        </li>
+        <li>
+          <i class="fa-solid fa-comments mr-2"></i>Zalo Hỗ Trợ:
+          <a data-track="zalo" href={ZALO_LINK} target="_blank" class="hover:text-primary"
+            >{HOTLINE_DISPLAY}</a
+          >
+        </li>
+        <li><i class="fa-solid fa-clock mr-2"></i>Giờ làm việc: 24/7 (kể cả lễ, Tết)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10 py-4 text-center text-sm text-white/50">
+    &copy; {new Date().getFullYear()} Nhà xe Thanh Tuấn.
+  </div>
+</footer>

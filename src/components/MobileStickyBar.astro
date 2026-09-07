@@ -1,0 +1,27 @@
+---
+import { HOTLINE_TEL, ZALO_LINK } from "../consts";
+---
+
+<!-- Mobile sticky contact bar (IA §2.2) -->
+<div
+  class="mobile-sticky-bar lg:hidden fixed bottom-0 left-0 right-0 z-50 grid grid-cols-2 bg-bg-main shadow-[0_-2px_10px_rgba(0,0,0,0.1)]"
+>
+  <a
+    href={`tel:${HOTLINE_TEL}`}
+    data-track="call"
+    class="flex flex-col items-center justify-center gap-1 py-2.5 bg-primary text-white font-semibold"
+  >
+    <i class="fa-solid fa-phone animate-ring"></i>
+    <span class="text-xs">Gọi ngay</span>
+  </a>
+
+  <a
+    href={ZALO_LINK}
+    target="_blank"
+    data-track="zalo"
+    class="flex flex-col items-center justify-center gap-1 py-2.5 bg-secondary text-white font-semibold"
+  >
+    <i class="fa-solid fa-comment"></i>
+    <span class="text-xs">Chat Zalo</span>
+  </a>
+</div>

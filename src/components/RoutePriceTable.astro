@@ -1,0 +1,36 @@
+---
+import { routes } from "../data/routes";
+
+interface Props {
+  limit?: number;
+}
+const { limit } = Astro.props;
+const rows = limit ? routes.slice(0, limit) : routes;
+---
+
+<div class="overflow-x-auto rounded-xl border border-border">
+  <table class="w-full min-w-[640px] text-left text-sm">
+    <thead class="bg-gray-50 font-semibold">
+      <tr>
+        <th class="px-4 py-3">Tuyến đường (từ TP.HCM)</th>
+        <th class="px-4 py-3">Khoảng cách</th>
+        <th class="px-4 py-3">Xe 4 chỗ (đ/ngày)</th>
+        <th class="px-4 py-3">Xe 7 chỗ (đ/ngày)</th>
+        <th class="px-4 py-3">Xe 16 chỗ (đ/ngày)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => (
+          <tr class="border-t border-border">
+            <td class="px-4 py-3 font-medium">{r.name}</td>
+            <td class="px-4 py-3 text-text-muted">{r.distance}</td>
+            <td class="px-4 py-3">{r.p4}</td>
+            <td class="px-4 py-3">{r.p7}</td>
+            <td class="px-4 py-3">{r.p16}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

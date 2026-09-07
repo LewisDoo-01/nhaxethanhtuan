@@ -1,0 +1,25 @@
+---
+// IA §3.1.3 Ưu Thế Vượt Trội
+const items = [
+  { icon: "fa-car", text: "Xe đời mới 100%, bảo dưỡng định kỳ, sạch sẽ không mùi" },
+  { icon: "fa-user-tie", text: "Tài xế chuyên nghiệp, đúng giờ, thân thiện, rành đường địa phương" },
+  { icon: "fa-key", text: "Thủ tục tự lái đơn giản, giao xe tận nơi" },
+  { icon: "fa-file-invoice-dollar", text: "Giá cả minh bạch, không phát sinh chi phí ẩn, hỗ trợ xuất hóa đơn VAT đầy đủ" },
+];
+---
+
+<section class="bg-gray-50">
+  <div class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h2 class="mb-8 text-center text-2xl font-bold">Ưu Thế Vượt Trội</h2>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        items.map((item) => (
+          <div class="rounded-xl bg-bg-card p-6 text-center shadow-sm">
+            <i class={`fa-solid ${item.icon} mb-3 text-3xl text-primary`} />
+            <p class="text-sm">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+// IA §3.1.6 Quy Trình Đặt Xe 3 Bước Đơn Giản
+const steps = [
+  { n: 1, title: "Chọn xe & Gửi yêu cầu", icon: "fa-car-side" },
+  { n: 2, title: "Nhận tư vấn & Báo giá trọn gói", icon: "fa-comments" },
+  { n: 3, title: "Xác nhận đặt xe & Trải nghiệm chuyến đi", icon: "fa-flag-checkered" },
+];
+---
+
+<section class="container mx-auto max-w-[1200px] px-6 py-12">
+  <h2 class="mb-8 text-center text-2xl font-bold">Quy Trình Đặt Xe 3 Bước Đơn Giản</h2>
+  <div class="grid gap-8 sm:grid-cols-3">
+    {
+      steps.map((s) => (
+        <div class="text-center">
+          <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-2xl text-primary">
+            <i class={`fa-solid ${s.icon}`} />
+          </div>
+          <div class="mb-1 text-xs font-semibold uppercase tracking-wide text-text-muted">
+            Bước {s.n}
+          </div>
+          <h3 class="font-semibold">{s.title}</h3>
+        </div>
+      ))
+    }
+  </div>
+</section>

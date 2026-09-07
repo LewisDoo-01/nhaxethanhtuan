@@ -1,0 +1,21 @@
+---
+import { HOTLINE_DISPLAY, HOTLINE_TEL } from "../../consts";
+---
+
+<!-- IA §3.1.8 Section Cam Kết & Kêu Gọi Hành Động Cuối Trang -->
+<section class="bg-secondary-light text-white">
+  <div class="container mx-auto max-w-[1200px] px-6 py-16 text-center">
+    <h2 class="mb-4 text-2xl font-bold text-white">
+      Bạn cần đi công tác gấp hay đi du lịch cùng gia đình?
+    </h2>
+    <p class="mb-6 text-white/70">Gọi ngay hotline để có giá ưu đãi nhất hôm nay.</p>
+    <a
+      href={`tel:${HOTLINE_TEL}`}
+      data-track="call"
+      class="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-4 text-lg font-semibold text-white transition hover:bg-primary-hover"
+    >
+      <i class="fa-solid fa-phone animate-ring"></i>
+      Gọi Ngay: {HOTLINE_DISPLAY}
+    </a>
+  </div>
+</section>

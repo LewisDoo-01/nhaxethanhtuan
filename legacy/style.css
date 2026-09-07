@@ -1,0 +1,167 @@
+/* ==========================================================================
+   DESIGN SYSTEM & VARIABLES - NHÀ XE THANH TUẤN
+   ========================================================================== */
+
+:root {
+    /* color palette */
+    --primary: rgb(224, 79, 79);
+    --primary-hover: rgb(36, 120, 126);
+    /* hover color change */
+    --secondary: rgb(216, 109, 38);
+    /* Header, nền tối, tiêu đề */
+    --secondary-light: black;
+    --accent: black;
+    /* Điểm nhấn phụ, đánh giá sao */
+    --accent-zalo: black;
+    /* Xanh Zalo thương hiệu */
+
+    /* Neutral Colors */
+    --bg-main: white;
+    /* background */
+    --bg-card: white;
+    /* background card */
+    --text-main: black;
+    /* main text */
+    --text-muted: black;
+    /* muted text */
+    --border-color: black;
+    /* border color */
+
+    /* Typography */
+    --font-heading: 'Outfit', 'Inter', 'sans-serif';
+    --font-body: 'Inter', 'sans-serif';
+
+    /* Layout & Spacing */
+    --container-max-width: 1200px;
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --transition-speed: 0.3s;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --box-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ==========================================================================
+   BASE RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Utilities */
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Trạng thái ẩn cuộn của body khi mở menu di động */
+body.menu-open {
+    overflow: hidden;
+}
+
+
+/* BUTTON */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    transition: all var(--trainsition-speed);
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(211, 47, 47, 0.3);
+}
+
+.btn-outline {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-hover);
+    color: white;
+}
+
+/* Ring vibration effect for Hotline icon*/
+@keyframes ring {
+    0%, 100% { transform: rotate(0deg); }
+    25% {transform: rotate(15deg); }
+    50% {transform: rotate(-15deg); }
+    75% {transform: rotate(10deg); }
+}
+
+.animate-ring {
+    animation: ring 1.5s infinite ease-in-out;
+}
+
+/* HEADER */
+

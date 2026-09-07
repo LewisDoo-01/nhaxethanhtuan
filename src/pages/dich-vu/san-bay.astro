@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Dịch Vụ Đưa Đón Sân Bay Uy Tín | Thanh Tuấn";
+const description = "Đưa đón sân bay đúng giờ, tài xế chuyên nghiệp, xe đời mới sạch sẽ.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Dịch Vụ Đưa Đón Sân Bay Uy Tín</h1>
+    <p class="mb-8 text-text-muted">
+      Tài xế đúng giờ, hỗ trợ hành lý, xe đời mới sạch sẽ — phù hợp cho cả khách gia đình, du lịch
+      và công tác.
+    </p>
+
+    <p class="mb-8 text-sm text-text-muted">
+      Xem bảng giá tuyến phổ biến và các dòng xe áp dụng tại trang
+      <a href="/dich-vu/co-tai-xe" class="font-semibold text-primary hover:underline"
+        >Thuê Xe Có Tài Xế</a
+      >.
+    </p>
+
+    <QuoteForm id="san-bay-quote-form" heading="Nhận Báo Giá Đưa Đón Sân Bay" />
+  </section>
+</Layout>

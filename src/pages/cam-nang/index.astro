@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PendingNote from "../../components/PendingNote.astro";
+
+const title = "Cẩm Nang & Tin Tức - Nhà Xe Thanh Tuấn";
+const description = "Cẩm nang đi lại, kinh nghiệm lái xe, hướng dẫn thủ tục thuê xe.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Cẩm Nang & Tin Tức</h1>
+    <p class="mb-8 text-text-muted">
+      Kinh nghiệm đi lại, hướng dẫn thủ tục thuê xe, chia sẻ điểm đến.
+    </p>
+
+    <PendingNote text="Bài viết cẩm nang đang được biên soạn, sẽ cập nhật sớm." />
+  </section>
+</Layout>

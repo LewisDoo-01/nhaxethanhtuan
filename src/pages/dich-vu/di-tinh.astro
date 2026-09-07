@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import RoutePriceTable from "../../components/RoutePriceTable.astro";
+import FleetGrid from "../../components/FleetGrid.astro";
+import QuoteForm from "../../components/QuoteForm.astro";
+
+const title = "Dịch Vụ Thuê Xe Đi Tỉnh Giá Rẻ - Đội Xe Đời Mới | Thanh Tuấn";
+const description =
+  "Thuê xe đi tỉnh, du lịch từ TP.HCM: Vũng Tàu, Cần Thơ, miền Tây... Xe đời mới, tài xế rành đường.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">
+      Dịch Vụ Thuê Xe Đi Tỉnh Giá Rẻ - Đội Xe Đời Mới
+    </h1>
+    <p class="mb-8 text-text-muted">
+      Đi tỉnh, du lịch miền Tây và các tỉnh lân cận TP.HCM. Tài xế kiêm hướng dẫn viên địa
+      phương nhiệt tình.
+    </p>
+
+    <h2 class="mb-4 text-xl font-bold">Bảng Giá Các Tuyến Đi Tỉnh & Miền Tây Phổ Biến</h2>
+    <p class="mb-4 text-sm text-text-muted">
+      Giá ước chừng mang tính chất tham khảo, đã bao gồm tài xế, xăng dầu, cầu đường cơ bản.
+    </p>
+    <div class="mb-10">
+      <RoutePriceTable />
+    </div>
+
+    <h2 class="mb-4 text-xl font-bold">Các Dòng Xe Phục Vụ</h2>
+    <div class="mb-10">
+      <FleetGrid />
+    </div>
+
+    <h2 class="mb-4 text-xl font-bold">Quy Định & Chính Sách</h2>
+    <p class="mb-10 text-sm text-text-muted">
+      Giá đã bao gồm xăng dầu, cầu đường, lương tài xế. Giá chưa bao gồm phí cao tốc tùy chọn,
+      VAT, tip tài xế (nếu có).
+    </p>
+
+    <QuoteForm id="di-tinh-quote-form" heading="Nhận Báo Giá Chi Tiết" />
+  </section>
+</Layout>

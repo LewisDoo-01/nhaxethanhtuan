@@ -1,0 +1,64 @@
+---
+import Layout from "../layouts/Layout.astro";
+import QuoteForm from "../components/QuoteForm.astro";
+import { HOTLINE_DISPLAY, HOTLINE_TEL, ZALO_LINK } from "../consts";
+
+const title = "Liên Hệ & Đặt Xe - Nhà Xe Thanh Tuấn";
+const description = "Thông tin liên hệ, bản đồ và form đặt xe nhanh của Nhà xe Thanh Tuấn.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Liên Hệ & Đặt Xe</h1>
+    <p class="mb-10 text-text-muted">
+      Gọi Hotline để được tư vấn ngay, hoặc điền form bên dưới để nhận báo giá chi tiết.
+    </p>
+
+    <div class="grid gap-10 lg:grid-cols-2">
+      <!-- Thông tin liên hệ + bản đồ -->
+      <div>
+        <ul class="mb-6 space-y-4 text-sm">
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-location-dot mt-1 text-primary"></i>
+            <span>Bình Thạnh, TP. Hồ Chí Minh</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-phone mt-1 text-primary"></i>
+            <span>
+              Hotline:
+              <a data-track="call" href={`tel:${HOTLINE_TEL}`} class="font-semibold hover:underline"
+                >{HOTLINE_DISPLAY}</a
+              >
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-comments mt-1 text-primary"></i>
+            <span>
+              Zalo Hỗ Trợ:
+              <a data-track="zalo" href={ZALO_LINK} target="_blank" class="font-semibold hover:underline"
+                >{HOTLINE_DISPLAY}</a
+              >
+            </span>
+          </li>
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-clock mt-1 text-primary"></i>
+            <span>Giờ làm việc: 24/7 (kể cả lễ, Tết)</span>
+          </li>
+        </ul>
+
+        <!-- TODO(open-item): thay bằng địa chỉ văn phòng chính xác khi có (docs/PRD.md §8) -->
+        <div class="overflow-hidden rounded-xl border border-border">
+          <iframe
+            title="Bản đồ Nhà xe Thanh Tuấn"
+            src="https://maps.google.com/maps?q=Binh%20Thanh%2C%20TP.%20Ho%20Chi%20Minh&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            class="h-80 w-full"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+
+      <QuoteForm id="contact-quote-form" heading="Nhận Báo Giá Chi Tiết" />
+    </div>
+  </section>
+</Layout>

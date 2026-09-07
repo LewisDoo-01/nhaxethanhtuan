@@ -1,0 +1,63 @@
+---
+import { HOTLINE_DISPLAY, HOTLINE_TEL, SITE_NAME } from "../consts";
+---
+
+<header class="sticky top-0 z-50 bg-bg-main shadow-sm">
+  <div class="container mx-auto max-w-[1200px] px-6 flex items-center justify-between py-3">
+    <a href="/" class="flex items-center gap-2 font-heading text-xl font-bold text-secondary">
+      <i class="fa-solid fa-car-side text-primary"></i>
+      <span>{SITE_NAME}</span>
+    </a>
+
+    <!-- Desktop nav (IA §2.1) -->
+    <nav class="hidden lg:block">
+      <ul class="flex items-center gap-6 font-medium">
+        <li><a href="/dich-vu" class="hover:text-primary">Dịch Vụ</a></li>
+        <li><a href="/bang-gia" class="hover:text-primary">Bảng Giá & Xe</a></li>
+        <li><a href="/khach-hang" class="hover:text-primary">Góc Khách Hàng</a></li>
+        <li><a href="/cam-nang" class="hover:text-primary">Cẩm Nang</a></li>
+        <li><a href="/lien-he" class="hover:text-primary">Liên Hệ</a></li>
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href={`tel:${HOTLINE_TEL}`}
+        data-track="call"
+        class="hidden sm:inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 font-semibold text-white transition hover:bg-primary-hover"
+      >
+        <i class="fa-solid fa-phone animate-ring"></i>
+        <span>Gọi Ngay: {HOTLINE_DISPLAY}</span>
+      </a>
+
+      <button
+        class="mobile-menu-toggle lg:hidden text-xl"
+        aria-label="Mở Menu"
+        aria-expanded="false"
+      >
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav panel -->
+  <nav id="mobile-nav" class="nav-menu--mobile lg:hidden">
+    <ul class="flex flex-col gap-1 px-6 pb-4 font-medium">
+      <li><a href="/dich-vu" class="block py-2">Dịch Vụ</a></li>
+      <li><a href="/bang-gia" class="block py-2">Bảng Giá & Xe</a></li>
+      <li><a href="/khach-hang" class="block py-2">Góc Khách Hàng</a></li>
+      <li><a href="/cam-nang" class="block py-2">Cẩm Nang</a></li>
+      <li><a href="/lien-he" class="block py-2">Liên Hệ</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  /* Mobile nav panel: collapsed by default, shown via JS toggle class */
+  .nav-menu--mobile {
+    display: none;
+  }
+  .nav-menu--mobile.nav-menu--open {
+    display: block;
+  }
+</style>

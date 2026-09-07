@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RoutePriceTable from "../components/RoutePriceTable.astro";
+import FleetGrid from "../components/FleetGrid.astro";
+
+const title = "Bảng Giá & Dòng Xe - Nhà Xe Thanh Tuấn";
+const description = "Bảng giá đầy đủ các tuyến đi tỉnh phổ biến và dòng xe 4/7/16 chỗ.";
+---
+
+<Layout title={title} description={description}>
+  <section class="container mx-auto max-w-[1200px] px-6 py-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Bảng Giá & Dòng Xe</h1>
+    <p class="mb-8 text-text-muted">
+      Giá ước chừng mang tính chất tham khảo, đã bao gồm tài xế, xăng dầu, cầu đường cơ bản.
+    </p>
+
+    <div class="mb-10">
+      <RoutePriceTable />
+    </div>
+
+    <p class="mb-10 text-sm text-text-muted">
+      Giá chưa bao gồm phí cao tốc tùy chọn, VAT (xuất hóa đơn theo yêu cầu), tip tài xế nếu có.
+      Với thuê xe tự lái, xem thêm <a href="/thu-tuc-tu-lai" class="font-semibold text-primary hover:underline">Thủ Tục Thuê Xe Tự Lái</a>.
+    </p>
+
+    <h2 class="mb-4 text-xl font-bold">Các Dòng Xe</h2>
+    <FleetGrid />
+  </section>
+</Layout>

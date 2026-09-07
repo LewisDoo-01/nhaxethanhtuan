@@ -1,0 +1,23 @@
+---
+import RoutePriceTable from "../RoutePriceTable.astro";
+import FleetGrid from "../FleetGrid.astro";
+---
+
+<section class="container mx-auto max-w-[1200px] px-6 py-12">
+  <h2 class="mb-2 text-center text-2xl font-bold">Bảng Giá Tham Khảo Các Tuyến Phổ Biến</h2>
+  <p class="mb-8 text-center text-sm text-text-muted">
+    Xuất phát từ TP.HCM, giá đã bao gồm tài xế, xăng dầu, cầu đường cơ bản
+  </p>
+
+  <div class="mb-10">
+    <RoutePriceTable limit={4} />
+  </div>
+
+  <div class="mb-10 text-center">
+    <a href="/bang-gia" class="font-semibold text-primary hover:underline">
+      Xem Bảng Giá Chi Tiết Tất Cả Các Tuyến →
+    </a>
+  </div>
+
+  <FleetGrid />
+</section>

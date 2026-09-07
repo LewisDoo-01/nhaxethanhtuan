@@ -1,0 +1,15 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CustomerSegments from "../../components/home/CustomerSegments.astro";
+
+const title = "Góc Khách Hàng - Nhà Xe Thanh Tuấn";
+const description = "Giải pháp riêng cho Gia đình, Khách du lịch và Doanh nghiệp.";
+---
+
+<Layout title={title} description={description}>
+  <div class="container mx-auto max-w-[1200px] px-6 pt-12">
+    <h1 class="mb-2 text-3xl font-extrabold text-secondary">Góc Khách Hàng</h1>
+    <p class="text-text-muted">Mỗi nhóm khách hàng có một nhu cầu riêng — chọn đúng nhóm của bạn.</p>
+  </div>
+  <CustomerSegments />
+</Layout>
