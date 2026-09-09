@@ -76,6 +76,7 @@ Nội dung/tài sản (ảnh xe thật, giá chính xác, giấy phép kinh doan
 - Track click Chat Zalo.
 - Track form submit (booking widget + form báo giá).
 - **Quyết định**: Phase 1 không tích hợp GA4/Facebook Pixel/GTM của bên thứ 3 — vì Nhà Xe Thanh Tuấn muốn hệ thống tracking/dashboard tự xây (xem Phase 2). Ở Phase 1, các sự kiện trên cần được thiết kế sẵn hook/event layer (ví dụ custom `data-track` attributes + một hàm gửi event tối giản) để Phase 2 cắm dashboard vào mà không phải sửa lại toàn bộ frontend.
+- **Cập nhật 2026-09-08**: form "Nhận báo giá" (booking widget + form báo giá chi tiết) đã nối vào backend tối thiểu — POST tới route server-side `/api/leads`, ghi vào bảng `leads` trên Neon Postgres. Đây là ngoại lệ có chủ đích với ràng buộc "không backend Phase 1" ở §6, chỉ để giải quyết G2 (form không được để "chết"). Không mở rộng thành CMS/dashboard — việc đó vẫn là Phase 2.
 
 ---
 
@@ -94,13 +95,15 @@ Nội dung/tài sản (ảnh xe thật, giá chính xác, giấy phép kinh doan
 | :--- | :--- |
 | **Framework** | Astro + TypeScript |
 | **Styling** | Tailwind CSS |
-| **Hosting** | Chưa xác định — open item, cần quyết định trước khi launch (ứng viên: Vercel/Netlify do tương thích tốt với Astro) |
+| **Hosting** | **Vercel** (chốt 2026-09-08) — dùng adapter `@astrojs/vercel`, hầu hết trang vẫn prerender tĩnh |
+| **Database (lead capture only)** | Neon Postgres, qua `@neondatabase/serverless` trong 1 route API duy nhất (`src/pages/api/leads.ts`) |
 | **Timeline** | Không gấp — ưu tiên chất lượng hơn tốc độ |
 
 **Ghi chú kỹ thuật:**
 - Cấu trúc hiện tại (`index.html`, `style.css` thuần) sẽ được **migrate sang Astro + Tailwind + TS**, không tiếp tục phát triển thêm trên nền HTML/CSS thuần.
 - File `script.js` hiện đang bị tham chiếu trong `index.html` nhưng không tồn tại — sẽ được thay thế bằng logic TypeScript trong quá trình migrate.
 - Cần thiết kế lại bảng màu trong biến CSS/Tailwind config (hiện tại nhiều biến màu đang là placeholder `black`).
+- Site về cơ bản vẫn tĩnh; ngoại lệ duy nhất là route `/api/leads` chạy server-side trên Vercel để ghi lead vào Neon. Không thêm route server-side khác ngoài mục đích này nếu chưa có quyết định tương đương.
 
 ---
 
@@ -120,11 +123,13 @@ Không thuộc phạm vi PRD này, ghi nhận để thiết kế kiến trúc Ph
 
 ## 8. Open Items / Cần Quyết Định Thêm
 
-- [ ] Nền tảng hosting cụ thể.
+- [x] ~~Nền tảng hosting cụ thể~~ — đã chốt Vercel (2026-09-08).
 - [ ] Domain chính thức.
 - [ ] Timeline chi tiết cho từng milestone (do "không gấp" nên chưa chốt mốc).
 - [ ] Bảng màu thương hiệu chính thức (thay thế placeholder `black`).
 - [ ] Danh sách ảnh/tài sản cụ thể cần khách hàng cung cấp theo từng trang.
+- [ ] Project Neon (database) đã tạo và `DATABASE_URL` đã cấu hình trên Vercel (Environment Variables) chưa — cần xác nhận trước khi form hoạt động thật trên production.
+- [ ] Chạy `docs/db/schema.sql` trên Neon project thật (tạo bảng `leads`) trước khi launch.
 
 ---
 

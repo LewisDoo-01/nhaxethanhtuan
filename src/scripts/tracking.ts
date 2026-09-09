@@ -20,16 +20,42 @@ export function initTrackedClicks(root: ParentNode = document) {
 }
 
 /**
- * No backend exists yet in Phase 1 (see docs/PRD.md §1.4), so lead-capture
- * forms can't actually submit anywhere. This tracks the attempt and shows an
- * inline confirmation asking the visitor to call/Zalo instead, rather than
- * silently reloading the page.
+ * Lead-capture forms POST to /api/leads (server-rendered route, writes to
+ * Neon — see docs/db/schema.sql). If that fails (e.g. DATABASE_URL not
+ * configured yet, or the visitor is offline), fall back to an inline message
+ * asking them to call/Zalo instead, rather than silently losing the lead.
  */
 export function initTrackedForms(root: ParentNode = document) {
   root.querySelectorAll<HTMLFormElement>("form[data-track='form_submit']").forEach((form) => {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      const data = new FormData(form);
+      const payload = {
+        sourcePage: location.pathname,
+        formId: form.id || undefined,
+        name: data.get("name")?.toString(),
+        phone: data.get("phone")?.toString(),
+        serviceType: data.get("service-type")?.toString(),
+        from: data.get("from")?.toString(),
+        to: data.get("to")?.toString(),
+        datetime: data.get("datetime")?.toString(),
+        note: data.get("note")?.toString(),
+      };
+
       trackEvent("form_submit", { formId: form.id || undefined });
+
+      let ok = false;
+      try {
+        const res = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        ok = res.ok;
+      } catch {
+        ok = false;
+      }
 
       let note = form.querySelector<HTMLElement>(".form-submitted-note");
       if (!note) {
@@ -37,8 +63,9 @@ export function initTrackedForms(root: ParentNode = document) {
         note.className = "form-submitted-note col-span-full text-sm font-medium text-primary";
         form.appendChild(note);
       }
-      note.textContent =
-        "Đã ghi nhận yêu cầu! Vui lòng gọi Hotline hoặc chat Zalo để được tư vấn ngay.";
+      note.textContent = ok
+        ? "Đã ghi nhận yêu cầu! Chúng tôi sẽ liên hệ lại sớm nhất, hoặc gọi Hotline để được tư vấn ngay."
+        : "Không gửi được yêu cầu lúc này. Vui lòng gọi Hotline hoặc chat Zalo để được tư vấn ngay.";
     });
   });
 }

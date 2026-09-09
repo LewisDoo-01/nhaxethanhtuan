@@ -6,7 +6,9 @@ Tài liệu tham chiếu bắt buộc: `PRD.md` (yêu cầu sản phẩm) và `i
 
 - **Framework**: Astro + TypeScript. Không dùng React/Vue/Next.js trừ khi PRD được cập nhật.
 - **Styling**: Tailwind CSS. Không viết CSS thuần mới, không quay lại `style.css`/`index.html` cũ (đang chờ migrate).
-- **Không backend/database ở Phase 1**: Đây là site tĩnh. Không thêm API routes, không kết nối DB, không xây admin/CMS — các hạng mục đó thuộc Phase 2 (xem PRD §7) và cần PRD riêng trước khi động vào.
+- **Backend tối thiểu cho lead capture (đã điều chỉnh so với PRD gốc)**: site vẫn tĩnh (`output` mặc định) ngoại trừ **duy nhất 1 route** `src/pages/api/leads.ts` (`prerender = false`) ghi lead vào Neon Postgres qua `@neondatabase/serverless`, deploy trên **Vercel** (adapter `@astrojs/vercel` đã cấu hình trong `astro.config.mjs`). Đây là ngoại lệ có chủ đích cho mục tiêu G2 (tăng lead) — không mở rộng thêm route server-side nào khác ngoài mục đích này nếu chưa xác nhận với user. Không xây admin/CMS/dashboard — vẫn thuộc Phase 2 (PRD §7), cần PRD riêng.
+  - Schema DB: `docs/db/schema.sql` (bảng `leads`, chạy 1 lần trong Neon SQL editor).
+  - Kết nối: `.env` (đã gitignore) chứa `DATABASE_URL`, xem mẫu ở `.env.example`. Không bao giờ commit giá trị thật.
 - **Tracking**: Không tích hợp GA4, Facebook Pixel, hay Google Tag Manager. Mọi CTA gọi điện/Zalo/form phải có event layer riêng tối giản (ví dụ `data-track` attribute + hàm gửi event nội bộ) để tương thích dashboard Phase 2 sau này — không cắm thẳng script bên thứ ba.
 - **Hosting/domain**: chưa chốt — đừng giả định nền tảng cụ thể trong code (tránh hard-code cấu hình riêng của Vercel/Netlify nếu chưa được xác nhận).
 

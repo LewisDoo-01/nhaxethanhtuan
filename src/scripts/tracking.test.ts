@@ -63,36 +63,69 @@ describe("initTrackedClicks", () => {
 describe("initTrackedForms", () => {
   beforeEach(() => {
     document.body.innerHTML = "";
+    vi.unstubAllGlobals();
   });
 
-  it("prevents default submission and shows a confirmation note", () => {
+  it("prevents default submission, POSTs to /api/leads, and shows a success note", async () => {
     document.body.innerHTML = `
       <form id="hero-form" data-track="form_submit">
+        <input name="phone" value="0909621297" />
         <button type="submit">Send</button>
       </form>
     `;
+    const fetchSpy = vi.fn().mockResolvedValue({ ok: true });
+    vi.stubGlobal("fetch", fetchSpy);
     initTrackedForms();
-    const spy = vi.spyOn(console, "info").mockImplementation(() => {});
+    const infoSpy = vi.spyOn(console, "info").mockImplementation(() => {});
 
     const form = document.getElementById("hero-form") as HTMLFormElement;
     const event = new Event("submit", { bubbles: true, cancelable: true });
     form.dispatchEvent(event);
 
     expect(event.defaultPrevented).toBe(true);
-    expect(spy).toHaveBeenCalledWith("[track] form_submit", { formId: "hero-form" });
-    expect(form.querySelector(".form-submitted-note")?.textContent).toMatch(/Đã ghi nhận yêu cầu/);
-    spy.mockRestore();
+    expect(infoSpy).toHaveBeenCalledWith("[track] form_submit", { formId: "hero-form" });
+    expect(fetchSpy).toHaveBeenCalledWith(
+      "/api/leads",
+      expect.objectContaining({ method: "POST" }),
+    );
+    const [, options] = fetchSpy.mock.calls[0];
+    expect(JSON.parse(options.body)).toMatchObject({ formId: "hero-form", phone: "0909621297" });
+
+    await vi.waitFor(() => {
+      expect(form.querySelector(".form-submitted-note")?.textContent).toMatch(/Đã ghi nhận yêu cầu/);
+    });
+
+    infoSpy.mockRestore();
   });
 
-  it("reuses the same note element on repeated submits instead of duplicating it", () => {
+  it("shows a fallback note when the request fails", async () => {
+    document.body.innerHTML = `<form id="fail-form" data-track="form_submit"></form>`;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockRejectedValue(new Error("network down")),
+    );
+    initTrackedForms();
+
+    const form = document.getElementById("fail-form") as HTMLFormElement;
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+
+    await vi.waitFor(() => {
+      expect(form.querySelector(".form-submitted-note")?.textContent).toMatch(
+        /Không gửi được yêu cầu/,
+      );
+    });
+  });
+
+  it("reuses the same note element on repeated submits instead of duplicating it", async () => {
     document.body.innerHTML = `<form data-track="form_submit"></form>`;
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }));
     initTrackedForms();
 
     const form = document.querySelector("form")!;
     form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    await vi.waitFor(() => expect(form.querySelector(".form-submitted-note")).toBeTruthy());
     form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-
-    expect(form.querySelectorAll(".form-submitted-note")).toHaveLength(1);
+    await vi.waitFor(() => expect(form.querySelectorAll(".form-submitted-note")).toHaveLength(1));
   });
 
   it("ignores forms without data-track='form_submit'", () => {
