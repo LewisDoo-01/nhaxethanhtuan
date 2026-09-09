@@ -119,6 +119,8 @@ Không thuộc phạm vi PRD này, ghi nhận để thiết kế kiến trúc Ph
 
 → Sẽ cần backend + database riêng, lập PRD riêng khi bắt đầu Phase 2.
 
+*Đã có bản thiết kế schema tham khảo (chưa triển khai): `docs/db/schema-phase2.sql`.*
+
 ---
 
 ## 8. Open Items / Cần Quyết Định Thêm
