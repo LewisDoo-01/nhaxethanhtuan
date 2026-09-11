@@ -69,12 +69,26 @@ Tài liệu này bổ sung cho `PRD.md` (yêu cầu) và `information_architectu
 
 ---
 
-## Giai đoạn 5 — Sau khi launch (không thuộc scope hiện tại)
+## Giai đoạn 5 — Phase 2 (Admin Dashboard) — PRD đã có, chưa triển khai
 
-Chỉ bắt đầu khi Phase 1 đã chạy ổn định và có nhu cầu rõ ràng:
+✅ **Đã soạn** `docs/PRD-phase2.md` (2026-09-09/11) + `docs/db/schema-phase2.sql`. Quyết định kỹ thuật đã chốt: web app riêng (Next.js/TS/shadcn/Tailwind/TanStack Query+Table/React Hook Form+Zod/Recharts/Zustand), auth tự xây, ảnh xe/blog lưu dạng static asset trong source code (không upload runtime).
 
-- **Phase 2 — Admin Dashboard** (PRD §7): ghi nhận lead, thống kê KPI, quản lý nội dung, đăng nhập. Cần PRD riêng.
-- Mở rộng Cẩm nang thành kênh SEO thật sự (viết bài định kỳ).
+**Việc cần làm trên repo Phase 1 (website chính) để dashboard có tác dụng thật:**
+- [ ] Sửa `src/data/routes.ts` → fetch `routes`/`fleet_classes` từ Neon (bảng đã thiết kế ở `docs/db/schema-phase2.sql`) thay vì hard-code.
+- [ ] Sửa `/cam-nang` → đọc `blog_posts` từ DB thay vì `PendingNote` tĩnh.
+- [ ] Vì các trang liên quan hiện đang **prerender tĩnh** (route `/`, `/bang-gia`, `/dich-vu/*`, `/cam-nang`...), đổi sang đọc từ DB nghĩa là các route này cần `prerender = false` (giống `/api/leads`) hoặc dùng ISR/ revalidate — cần đánh giá ảnh hưởng hiệu năng khi đổi.
+
+**Việc cần làm trên dashboard (repo mới, chưa tạo):**
+- [ ] Khởi tạo repo Next.js theo stack đã chốt.
+- [ ] Chốt hosting + domain cho dashboard (open item ở PRD-phase2 §8).
+- [ ] Tạo Mapbox account + access token cho tính năng xác minh điểm đón/trả trên bản đồ ở màn chi tiết lead (PRD-phase2 §4.2/§8).
+- [ ] Tạo tài khoản admin đầu tiên (seed script hoặc SQL thủ công).
+
+Chỉ bắt đầu khi Phase 1 đã chạy ổn định và có nhu cầu rõ ràng.
+
+## Giai đoạn 6 — Khác (không thuộc scope hiện tại)
+
+- Mở rộng Cẩm nang thành kênh SEO thật sự (viết bài định kỳ) — phụ thuộc Giai đoạn 5 (blog_posts từ DB).
 - Đánh giá lại nhu cầu đa ngôn ngữ nếu có khách quốc tế đáng kể.
 
 ---

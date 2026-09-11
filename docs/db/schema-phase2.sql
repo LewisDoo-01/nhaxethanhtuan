@@ -56,7 +56,18 @@ create table if not exists leads (
   note          text,
   status        text not null default 'new'
                   check (status in ('new', 'contacted', 'quoted', 'won', 'lost')),
-  assigned_to   bigint references users (id)
+  assigned_to   bigint references users (id),
+
+  -- Cache kết quả geocode (Mapbox Geocoding API) của from_location/to_location,
+  -- để hiển thị pin xác minh vị trí ở màn chi tiết lead (PRD-phase2 §4.2).
+  -- Geocode theo yêu cầu (khi admin mở chi tiết lead lần đầu), lưu lại ở đây
+  -- để không gọi lại API mỗi lần xem. NULL nghĩa là chưa geocode hoặc geocode
+  -- thất bại (địa chỉ tự do, không chuẩn hóa nên không đảm bảo luôn ra kết quả).
+  from_lat      double precision,
+  from_lng      double precision,
+  to_lat        double precision,
+  to_lng        double precision,
+  geocoded_at   timestamptz
 );
 
 create index if not exists leads_created_at_idx on leads (created_at desc);
@@ -102,16 +113,19 @@ create index if not exists routes_sort_order_idx on routes (sort_order);
 -- =============================================================
 -- 6. fleet_classes — dòng xe (4/7/16 chỗ), thay cho fleetClasses trong
 --    src/data/routes.ts
---    Lưu ý: ảnh xe thật (upload/quản lý file) CHƯA thiết kế ở đây — cần
---    quyết định nơi lưu trữ ảnh (Vercel Blob/S3/Cloudinary...) trước.
+--    Ảnh xe (quyết định 2026-09-11): lưu dạng static asset trong source
+--    code (KHÔNG upload runtime, KHÔNG lưu file nhị phân trong DB).
+--    photo_asset_path chỉ lưu đường dẫn tới file đã commit sẵn trong repo,
+--    vd '/images/fleet/4-cho.jpg'. Đổi ảnh = dev commit file mới + deploy.
 -- =============================================================
 create table if not exists fleet_classes (
-  id          bigint generated always as identity primary key,
-  seats_label text not null,   -- vd '4 Chỗ'
-  note        text,
-  sort_order  integer not null default 0,
-  updated_at  timestamptz not null default now(),
-  updated_by  bigint references users (id)
+  id                bigint generated always as identity primary key,
+  seats_label       text not null,   -- vd '4 Chỗ'
+  note              text,
+  photo_asset_path  text,            -- đường dẫn asset tĩnh, vd '/images/fleet/4-cho.jpg'
+  sort_order        integer not null default 0,
+  updated_at        timestamptz not null default now(),
+  updated_by        bigint references users (id)
 );
 
 create index if not exists fleet_classes_sort_order_idx on fleet_classes (sort_order);
@@ -125,7 +139,7 @@ create table if not exists blog_posts (
   title         text not null,
   excerpt       text,
   content       text,          -- markdown hoặc rich text, tùy editor chọn sau
-  cover_image_url text,
+  cover_image_url text,        -- đường dẫn asset tĩnh trong repo, cùng quy ước với fleet_classes.photo_asset_path
   status        text not null default 'draft' check (status in ('draft', 'published')),
   published_at  timestamptz,
   author_id     bigint references users (id),
