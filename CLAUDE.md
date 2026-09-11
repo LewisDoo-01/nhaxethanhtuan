@@ -35,3 +35,13 @@ Phần lớn traffic đến từ mobile. Mobile sticky bar (Gọi ngay / Chat Za
 1. Kiểm tra trang/tính năng đã có trong sitemap `information_architecture.md` chưa. Nếu chưa có, hỏi user trước khi tự ý mở rộng scope.
 2. Đối chiếu tiêu chí chấp nhận ở PRD §9 trước khi báo "hoàn thành".
 3. Không tự thêm tính năng ngoài phạm vi Phase 1 (đặt xe online, thanh toán, tài khoản khách hàng, CMS) — đó là phi mục tiêu rõ ràng trong PRD §1.4.
+
+## Xem điểm đến trên Google Maps (QuoteForm)
+
+Khi khách gõ vào ô "Điểm đến" trong `QuoteForm.astro`, `src/scripts/destination-map.ts` hiện preview Google Maps embed (debounce 400ms) để khách **tự xác nhận** địa điểm — thuần client-side, **không gọi API/geocode server, không lưu/track** gì (đúng `docs/PRD.md` §4.2). Không dùng Mapbox, không cần API key (dùng URL embed dạng `?q=...&output=embed`, giống `/lien-he`).
+
+Lưu ý: có một tính năng tương tự từng được thiết kế cho **Phase 2 Admin Dashboard** (Mapbox, admin xác minh địa chỉ lead) nhưng đã bị bỏ khỏi `docs/PRD-phase2.md` — đây là 2 việc khác nhau, đừng nhầm lẫn khi đọc lại lịch sử.
+
+## Phase 2 (Admin Dashboard) — đã có PRD/schema riêng, chưa triển khai
+
+`docs/PRD-phase2.md` + `docs/db/schema-phase2.sql` đã thiết kế xong (web app Next.js riêng biệt, dùng chung Neon DB, auth tự xây, ảnh lưu static asset trong source code, có audit log). Chưa scaffold code. Website chính (Phase 1) sẽ cần sửa để đọc `routes`/`fleet_classes`/`blog_posts` từ DB thay vì hard-code `src/data/routes.ts` khi Phase 2 triển khai — tracked ở `docs/ROADMAP.md`, chưa làm.

@@ -42,9 +42,26 @@ const isInline = layout === "inline";
     <input id={`${id}-from`} name="from" type="text" placeholder="TP.HCM" class="w-full rounded-lg border border-border px-3 py-2" />
   </div>
 
-  <div>
+  <div class:list={isInline ? "sm:col-span-2 lg:col-span-full" : ""}>
     <label for={`${id}-to`} class="mb-1 block text-sm font-medium">Điểm đến</label>
-    <input id={`${id}-to`} name="to" type="text" placeholder="Vũng Tàu..." class="w-full rounded-lg border border-border px-3 py-2" />
+    <input
+      id={`${id}-to`}
+      name="to"
+      type="text"
+      placeholder="Vũng Tàu..."
+      class="w-full rounded-lg border border-border px-3 py-2"
+      data-destination-map-input
+      autocomplete="off"
+    />
+    <!-- Bản đồ để khách tự xác nhận điểm đến — thuần client-side, không track (docs/PRD.md §4.2) -->
+    <div data-destination-map-preview hidden class="mt-2 overflow-hidden rounded-lg border border-border">
+      <iframe
+        title="Xem trước điểm đến trên bản đồ"
+        class="h-48 w-full"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
   </div>
 
   <div>

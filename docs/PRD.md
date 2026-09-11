@@ -65,6 +65,7 @@ Nội dung/tài sản (ảnh xe thật, giá chính xác, giấy phép kinh doan
 - Booking widget nhanh ở Hero (loại dịch vụ, điểm đi/đến, ngày giờ, SĐT).
 - Form "Nhận báo giá chi tiết" ở cuối trang chi tiết dịch vụ (cho lộ trình nhiều ngày).
 - Toàn bộ submit event phải được track được (phục vụ đo KPI G2, và làm nền cho Phase 2 dashboard).
+- **Xem điểm đến trên Google Maps để khách tự xác nhận (quyết định 2026-09-11)**: khi khách gõ vào ô "Điểm đến", hiện bản đồ (Google Maps embed) tương ứng để khách xác nhận trực quan đúng nơi mình muốn đi trước khi gửi form. Thuần client-side — không gọi API/geocode phía server, **không lưu/track** tọa độ hay lượt xem bản đồ này ở bất kỳ đâu (không phải sự kiện đo KPI ở §4.4). Không dùng Mapbox — dùng Google Maps embed URL dạng `https://maps.google.com/maps?q=<địa_chỉ>&output=embed` (giống cách `/lien-he` đã nhúng bản đồ văn phòng), không cần API key.
 
 ### 4.3. Nội dung động cần hiển thị
 - Bảng giá theo tuyến (dữ liệu dạng bảng, dễ cập nhật thủ công trong Phase 1).

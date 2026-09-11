@@ -13,6 +13,7 @@
 --   2. Thống kê/biểu đồ KPI theo thời gian         -> events, leads (status)
 --   3. Quản lý nội dung (giá xe, dòng xe, blog)    -> routes, fleet_classes, blog_posts
 --   4. Đăng nhập/phân quyền admin                  -> users, sessions
+--   5. Audit log (ai sửa gì, khi nào)               -> audit_log
 
 -- =============================================================
 -- 1. users — tài khoản nhân viên/chủ nhà xe đăng nhập dashboard
@@ -56,18 +57,7 @@ create table if not exists leads (
   note          text,
   status        text not null default 'new'
                   check (status in ('new', 'contacted', 'quoted', 'won', 'lost')),
-  assigned_to   bigint references users (id),
-
-  -- Cache kết quả geocode (Mapbox Geocoding API) của from_location/to_location,
-  -- để hiển thị pin xác minh vị trí ở màn chi tiết lead (PRD-phase2 §4.2).
-  -- Geocode theo yêu cầu (khi admin mở chi tiết lead lần đầu), lưu lại ở đây
-  -- để không gọi lại API mỗi lần xem. NULL nghĩa là chưa geocode hoặc geocode
-  -- thất bại (địa chỉ tự do, không chuẩn hóa nên không đảm bảo luôn ra kết quả).
-  from_lat      double precision,
-  from_lng      double precision,
-  to_lat        double precision,
-  to_lng        double precision,
-  geocoded_at   timestamptz
+  assigned_to   bigint references users (id)
 );
 
 create index if not exists leads_created_at_idx on leads (created_at desc);
@@ -149,3 +139,24 @@ create table if not exists blog_posts (
 
 create unique index if not exists blog_posts_slug_idx on blog_posts (slug);
 create index if not exists blog_posts_status_published_idx on blog_posts (status, published_at desc);
+
+-- =============================================================
+-- 8. audit_log — lịch sử thay đổi: ai sửa gì, khi nào (quyết định 2026-09-11)
+--    Ghi cho: đổi status/assigned_to của leads, CRUD routes/fleet_classes/
+--    blog_posts, và các thao tác quản lý tài khoản (tạo/khóa user, đổi role).
+--    Không ghi cho hành vi xem/đọc (chỉ ghi hành động làm thay đổi dữ liệu).
+-- =============================================================
+create table if not exists audit_log (
+  id          bigint generated always as identity primary key,
+  created_at  timestamptz not null default now(),
+  actor_id    bigint references users (id),   -- null nếu hành động do hệ thống (hiếm khi cần)
+  action      text not null check (action in ('create', 'update', 'delete')),
+  entity_type text not null,   -- 'lead' | 'route' | 'fleet_class' | 'blog_post' | 'user'
+  entity_id   bigint not null,
+  before      jsonb,           -- snapshot trước khi sửa (null nếu action = 'create')
+  after       jsonb            -- snapshot sau khi sửa (null nếu action = 'delete')
+);
+
+create index if not exists audit_log_entity_idx on audit_log (entity_type, entity_id);
+create index if not exists audit_log_actor_idx on audit_log (actor_id);
+create index if not exists audit_log_created_at_idx on audit_log (created_at desc);

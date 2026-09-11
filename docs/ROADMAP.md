@@ -80,9 +80,9 @@ Tài liệu này bổ sung cho `PRD.md` (yêu cầu) và `information_architectu
 
 **Việc cần làm trên dashboard (repo mới, chưa tạo):**
 - [ ] Khởi tạo repo Next.js theo stack đã chốt.
-- [ ] Chốt hosting + domain cho dashboard (open item ở PRD-phase2 §8).
-- [ ] Tạo Mapbox account + access token cho tính năng xác minh điểm đón/trả trên bản đồ ở màn chi tiết lead (PRD-phase2 §4.2/§8).
-- [ ] Tạo tài khoản admin đầu tiên (seed script hoặc SQL thủ công).
+- [ ] Deploy lên Vercel (đề xuất, xem PRD-phase2 §8) — domain/subdomain vẫn chờ domain chính thức của Phase 1.
+- [ ] Viết `scripts/seed-admin.ts` để tạo tài khoản admin đầu tiên (PRD-phase2 §8).
+- [ ] Cài đặt bảng `audit_log` và ghi log cho mọi thao tác tạo/sửa/xóa (PRD-phase2 §4.6).
 
 Chỉ bắt đầu khi Phase 1 đã chạy ổn định và có nhu cầu rõ ràng.
 

@@ -45,10 +45,12 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
     <script>
       import { initMobileMenu } from "../scripts/mobile-menu";
       import { initTrackedClicks, initTrackedForms } from "../scripts/tracking";
+      import { initDestinationMaps } from "../scripts/destination-map";
 
       initMobileMenu();
       initTrackedClicks();
       initTrackedForms();
+      initDestinationMaps();
     </script>
   </body>
 </html>

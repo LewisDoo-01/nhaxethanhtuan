@@ -67,10 +67,9 @@ Bài Cẩm nang (`blog_posts`) tương tự: `/cam-nang` ở website chính hi�
 ### 4.2. Quản lý Lead
 - Danh sách lead: lọc theo `status`, tìm theo số điện thoại, sắp xếp theo `created_at`.
 - Xem chi tiết 1 lead: đầy đủ thông tin đã gửi (tên, SĐT, loại dịch vụ, điểm đi/đến, ngày giờ, ghi chú, trang nguồn).
-- **Xác minh điểm đón/trả trên bản đồ (Mapbox)**: `from_location`/`to_location` là text tự do khách nhập (vd "TP.HCM", "Vũng Tàu", có thể ghi thiếu/sai). Ở màn chi tiết lead, geocode 2 địa chỉ này sang tọa độ (Mapbox Geocoding API) và hiển thị pin trên bản đồ (Mapbox GL) để admin/staff xác minh nhanh bằng mắt xem địa chỉ khách nhập có hợp lý không, trước khi gọi lại tư vấn.
-  - Đây là **công cụ hỗ trợ xác minh trực quan**, không phải nguồn dữ liệu địa lý chính xác tuyệt đối — text tự do có thể geocode sai/mơ hồ (trùng tên địa danh, viết tắt...); admin vẫn cần xác nhận lại với khách qua điện thoại khi cần.
-  - Geocode theo yêu cầu (khi admin mở chi tiết lead), kết quả lưu cache vào `leads` (xem cột mới trong schema) để tránh gọi lại API mỗi lần xem, và giữ được bản ghi lịch sử ngay cả khi sau này đổi/mất Mapbox token.
 - Đổi `status` (new → contacted → quoted → won/lost), gán `assigned_to` cho staff xử lý.
+
+*(Cập nhật 2026-09-11: tính năng xem điểm đến trên bản đồ đã chuyển sang Phase 1 — xem `docs/PRD.md` — vì mục đích thực tế là để **khách hàng** tự xác nhận địa điểm ngay trên form đặt xe, không phải công cụ nội bộ cho admin. Không dùng Mapbox, không geocode/lưu tọa độ ở backend — thuần client-side qua Google Maps embed.)*
 - Không cần thông báo real-time (push/email) ở bản đầu — nhân viên chủ động vào xem.
 
 ### 4.3. Thống Kê KPI
@@ -87,6 +86,13 @@ Bài Cẩm nang (`blog_posts`) tương tự: `/cam-nang` ở website chính hi�
 ### 4.5. Quản Lý Tài Khoản (chỉ admin)
 - Tạo/khóa tài khoản `staff`.
 - Đổi mật khẩu cho tài khoản khác (admin) hoặc chính mình.
+
+### 4.6. Audit Log (quyết định 2026-09-11)
+- Mọi hành động **làm thay đổi dữ liệu** đều ghi vào bảng `audit_log`: đổi `status`/`assigned_to` của lead, CRUD `routes`/`fleet_classes`/`blog_posts`, và thao tác quản lý tài khoản (tạo/khóa user, đổi role/mật khẩu).
+- Mỗi bản ghi lưu: ai làm (`actor_id`), hành động (`create`/`update`/`delete`), đối tượng bị tác động (`entity_type` + `entity_id`), và snapshot dữ liệu trước/sau (`before`/`after`, dạng JSON) để xem lại được chính xác đã đổi gì.
+- Không ghi cho hành vi chỉ xem/đọc (tránh audit log phình quá lớn không cần thiết).
+- Màn hình xem lại: admin xem lịch sử theo từng đối tượng (vd lịch sử sửa 1 tuyến giá) hoặc theo từng nhân viên (vd nhân viên A đã làm gì trong tuần). Không yêu cầu real-time, xem theo yêu cầu là đủ.
+- Ghi audit log là trách nhiệm của **backend dashboard** (ghi trong cùng transaction với thao tác chính) — không dựa vào client tự gửi log riêng, tránh bị bỏ sót/giả mạo.
 
 ---
 
@@ -113,14 +119,13 @@ Bài Cẩm nang (`blog_posts`) tương tự: `/cam-nang` ở website chính hi�
 | **Bảng dữ liệu** | **TanStack Table** (danh sách lead, routes, fleet_classes, blog_posts) |
 | **Form & validate** | **React Hook Form** + **Zod** (form CRUD nội dung, form đăng nhập) |
 | **Biểu đồ KPI** | **Recharts** (§4.3) |
-| **Bản đồ** | **Mapbox** (GL + Geocoding API) — xác minh điểm đón/trả của lead trên bản đồ, xem §4.2 |
-| **Hosting** | Chưa chốt — open item, nhưng **không còn bị ràng buộc bởi yêu cầu ổ đĩa persistent** (đã gỡ sau quyết định lưu ảnh dạng asset) |
+| **Hosting** | Đề xuất **Vercel**, nhất quán với Phase 1, không còn bị ràng buộc ổ đĩa persistent — xem lưu ý ở §8 |
 
 ---
 
 ## 7. Liên Kết Với `docs/db/schema-phase2.sql`
 
-Toàn bộ bảng trong file schema (`users`, `sessions`, `leads` mở rộng, `events`, `routes`, `fleet_classes`, `blog_posts`) là nguồn dữ liệu chính thức cho PRD này. Không thêm bảng mới ngoài phạm vi đã thiết kế mà không cập nhật file schema trước.
+Toàn bộ bảng trong file schema (`users`, `sessions`, `leads` mở rộng, `events`, `routes`, `fleet_classes`, `blog_posts`, `audit_log`) là nguồn dữ liệu chính thức cho PRD này. Không thêm bảng mới ngoài phạm vi đã thiết kế mà không cập nhật file schema trước.
 
 ---
 
@@ -129,12 +134,11 @@ Toàn bộ bảng trong file schema (`users`, `sessions`, `leads` mở rộng, `
 - [x] ~~Framework cụ thể cho dashboard~~ — đã chốt Next.js + TypeScript (2026-09-11).
 - [x] ~~Cơ chế lưu ảnh~~ — đã chốt static asset trong source code, không upload runtime (2026-09-11).
 - [x] ~~Website chính có cần sửa để đọc từ DB không~~ — đã xác nhận **có**, tracked ở `docs/ROADMAP.md` (2026-09-11).
-- [ ] Nền tảng hosting cho dashboard — vẫn open, nhưng không còn ràng buộc ổ đĩa persistent nên có thể cân nhắc cả serverless (Vercel...) lẫn VPS.
-- [ ] Domain/subdomain cho dashboard (vd `admin.nhaxethanhtuan.com`).
-- [x] ~~Use case cụ thể cho Mapbox~~ — đã chốt: xác minh điểm đón/trả của lead trên bản đồ, xem §4.2 (2026-09-11).
-- [ ] Tạo Mapbox account + access token, lưu vào biến môi trường riêng của dashboard (không dùng chung `.env`/secret với Phase 1). Lưu ý free tier Mapbox Geocoding có giới hạn số request/tháng — đủ cho quy mô hiện tại nhưng cần theo dõi nếu lead tăng nhiều.
-- [ ] Cách tạo tài khoản admin đầu tiên (seed script, hay chạy SQL insert thủ công qua Neon SQL editor).
-- [ ] Có cần audit log (ai sửa gì, khi nào) không — hiện schema chưa có bảng này.
+- [x] ~~Nền tảng hosting cho dashboard~~ — đề xuất **Vercel** (2026-09-11), nhất quán với Phase 1, không còn bị ràng buộc ổ đĩa persistent. *Chưa phải quyết định cuối cùng của bạn — nếu muốn đổi sang VPS/nền tảng khác, báo lại trước khi scaffold repo.*
+- [ ] Domain/subdomain cho dashboard (vd `admin.nhaxethanhtuan.com`) — vẫn phụ thuộc domain chính thức của Phase 1 (cũng đang là open item ở `docs/PRD.md` §8).
+- [x] ~~Mapbox~~ — **bỏ khỏi Phase 2** (2026-09-11). Nhu cầu thực tế là khách hàng tự xác nhận địa điểm trên form đặt xe — đã chuyển thành tính năng Google Maps ở Phase 1 (`docs/PRD.md`), không phải công cụ nội bộ dashboard.
+- [x] ~~Cách tạo tài khoản admin đầu tiên~~ — đề xuất **seed script** chạy 1 lần (`scripts/seed-admin.ts`, đọc email/password từ biến môi trường lúc chạy, hash password rồi insert vào `users`) thay vì insert tay qua Neon SQL editor (an toàn hơn — không paste password dạng gợi nhớ vào SQL editor/lịch sử lệnh).
+- [x] ~~Có cần audit log không~~ — **có**, đã thiết kế bảng `audit_log` (xem §4.6, `docs/db/schema-phase2.sql`).
 
 ---
 
@@ -143,6 +147,6 @@ Toàn bộ bảng trong file schema (`users`, `sessions`, `leads` mở rộng, `
 - Đăng nhập/đăng xuất hoạt động đúng, session hết hạn bị từ chối truy cập.
 - `staff` không truy cập được các trang/API quản lý nội dung và quản lý tài khoản (kiểm tra bằng test hoặc thao tác tay).
 - Danh sách lead hiển thị đúng dữ liệu từ Neon, đổi `status`/`assigned_to` lưu lại đúng.
-- Màn chi tiết lead hiển thị đúng pin điểm đón/trả trên bản đồ Mapbox khi `from_location`/`to_location` geocode được; xử lý hợp lý khi geocode thất bại hoặc mơ hồ (không crash, báo rõ cho admin biết là không xác định được vị trí).
 - Biểu đồ KPI phản ánh đúng số liệu trong `events`/`leads` theo khoảng thời gian chọn.
-- CRUD `routes`/`fleet_classes`/`blog_posts` hoạt động, ảnh upload lưu và hiển thị lại đúng trên chính dashboard (chưa yêu cầu phản ánh ra website chính — xem §3).
+- CRUD `routes`/`fleet_classes`/`blog_posts` hoạt động; ảnh (asset tĩnh, đường dẫn lưu ở `photo_asset_path`/`cover_image_url`) hiển thị đúng trên chính dashboard (chưa yêu cầu phản ánh ra website chính — xem §3).
+- Mọi thao tác tạo/sửa/xóa (lead status, routes, fleet_classes, blog_posts, tài khoản) đều tạo đúng 1 bản ghi tương ứng trong `audit_log`, xem lại được lịch sử theo đối tượng và theo nhân viên.
